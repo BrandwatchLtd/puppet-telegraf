@@ -26,7 +26,7 @@ define telegraf::input (
   }
 
   if $subsections {
-    validate_hash($sections)
+    validate_hash($subections)
   }
 
   Class['telegraf::config']
