@@ -21,14 +21,6 @@ define telegraf::input (
     validate_hash($options)
   }
 
-  if $sections {
-    validate_hash($sections)
-  }
-
-  if $subsections {
-    validate_hash($subections)
-  }
-
   Class['telegraf::config']
   ->
   file {"/etc/telegraf/telegraf.d/${name}.conf":
