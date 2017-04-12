@@ -1,20 +1,31 @@
 [[inputs.<%= @plugin_type %>]]
-<% @options.keys.sort.each do |key| -%>
-<% if @options[key].is_a?(String) -%>
-  <%= key %> = "<%= @options[key] %>"
-<% else -%>
-  <%= key %> = <%= @options[key] %>
-<% end -%>
-<% end -%>
+<%      unless @options == nil -%>
+<%          @options.sort.each do | option, value | -%>
+  <%= option -%> = <% if value.is_a?(String) %>"<%= value %>"<% elsif value.is_a?(Array) %><%= value.inspect %><% else %><%= value %><% end %>
+<%          end -%>
+<%      end -%>
 <% if @sections -%>
-<% @sections.keys.sort.each do |key| -%>
-[[inputs.<%= key %>]]
-<% @sections[key].keys.sort.each do |value| -%>
-<% if @sections[key][value].is_a?(String) -%>
-  <%= value %> = "<%= @sections[key][value] %>"
-<% else -%>
-  <%= value %> = <%= @sections[key][value] %>
+<% @sections.each do |section| -%>
+<%   section.each do |name, option| -%>
+[[inputs.<%= name %>]]
+<%      unless option == nil -%>
+<%          option.sort.each do | suboption, value | -%>
+  <%= suboption -%> = <% if value.is_a?(String) %>"<%= value %>"<% elsif value.is_a?(Array) %><%= value.inspect %><% else %><%= value %><% end %>
+<%          end -%>
+<%      end -%>
+<%   end-%>
 <% end -%>
 <% end -%>
+
+<% if @sections_no_repeat -%>
+<% @sections_no_repeat.each do |section, option| -%>
+<%   section.each do |name, option| -%>
+[inputs.<%= name %>]
+<%      unless option == nil -%>
+<%          option.sort.each do | suboption, value | -%>
+  <%= suboption -%> = <% if value.is_a?(String) %>"<%= value %>"<% elsif value.is_a?(Array) %><%= value.inspect %><% else %><%= value %><% end %>
+<%          end -%>
+<%      end -%>
+<%   end -%>
 <% end -%>
 <% end -%>
