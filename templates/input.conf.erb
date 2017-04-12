@@ -17,8 +17,8 @@
 <% end -%>
 <% end -%>
 
-<% if @sections_no_repeat -%>
-<% @sections_no_repeat.each do |section, option| -%>
+<% if @subsections -%>
+<% @subsections.each do |section, option| -%>
 <%   section.each do |name, option| -%>
 [inputs.<%= name %>]
 <%      unless option == nil -%>

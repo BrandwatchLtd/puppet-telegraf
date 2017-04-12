@@ -13,7 +13,7 @@ define telegraf::input (
   $plugin_type = undef,
   $options    = undef,
   $sections   = undef,
-  $sections_no_repeat = undef
+  $subsections = undef
 ) {
   include telegraf
 
@@ -22,6 +22,10 @@ define telegraf::input (
   }
 
   if $sections {
+    validate_hash($sections)
+  }
+
+  if $subsections {
     validate_hash($sections)
   }
 
