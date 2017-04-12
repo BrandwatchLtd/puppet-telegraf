@@ -13,6 +13,7 @@ define telegraf::input (
   $plugin_type = undef,
   $options    = undef,
   $sections   = undef,
+  $sectoins_no_repeat = undef
 ) {
   include telegraf
 
