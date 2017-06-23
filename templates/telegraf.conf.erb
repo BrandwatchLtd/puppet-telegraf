@@ -4,7 +4,7 @@
 #
 <% if @global_tags -%>
 [global_tags]
-role="<%= @role -%>"
+  role="<%= @role -%>"
 <%   @global_tags.sort.each do |key, value| -%>
   <%= key %> = "<%= value %>"
 <%   end -%>
