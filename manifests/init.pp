@@ -79,6 +79,7 @@ class telegraf (
   $global_tags            = $telegraf::params::global_tags,
   $manage_service         = $telegraf::params::manage_service,
   $manage_repo            = $telegraf::params::manage_repo,
+  $role                   = $telegraf::params::role,
 ) inherits ::telegraf::params
 {
 
