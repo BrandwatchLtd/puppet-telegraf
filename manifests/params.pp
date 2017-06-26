@@ -7,7 +7,7 @@ class telegraf::params {
   $ensure                 = 'present'
   $config_file            = '/etc/telegraf/telegraf.conf'
   $hostname               = $::hostname
-  $role                   = hiera_hash('classes::role')
+  $role                   = hiera_hash('classes')
   $interval               = '10s'
   $round_interval         = true
   $metric_buffer_limit    = '1000'
