@@ -27,7 +27,7 @@
 # OUTPUTS:
 #
 <%   @outputs.sort.each do | output, options | -%>
-[[outputs.<%= output[0...-2]%>]]
+[[outputs.<%= output.gsub(/-?[0-9]+$/,'') %>]]
 <%      unless options == nil -%>
 <%          options.sort.each do | option, value | -%>
   <%= option -%> = <% if value.is_a?(String) %>"<%= value %>"<% elsif value.is_a?(Array) %><%= value.inspect %><% else %><%= value %><% end %>
@@ -41,7 +41,7 @@
 # INPUTS:
 #
 <%   @inputs.sort.each do | input, options | -%>
-[[inputs.<%= input %>]]
+[[inputs.<%= input.gsub(/-?[0-9]+$/,'') %>]]
 <%      unless options == nil -%>
 <%          options.sort.each do | option, value | -%>
   <%= option -%> = <% if value.is_a?(String) %>"<%= value %>"<% elsif value.is_a?(Array) %><%= value.inspect %><% else %><%= value %><% end %>
