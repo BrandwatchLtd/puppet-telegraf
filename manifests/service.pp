@@ -15,25 +15,10 @@ class telegraf::service {
       require   => Class['::telegraf::config'],
     }
 
-    if has_key( $::telegraf::inputs, 'tcp_listener') or has_key( $::telegraf::inputs, 'udp_listener') {
-      # setup cronjob to check if ports are open and restart telegraf if not
-      if has_key( $::telegraf::inputs, 'tcp_listener') and has_key( $::telegraf::inputs[tcp_listener], 'service_address') {
-        $tcp_port = split( $::telegraf::inputs[tcp_listener][service_address], ':')[1]
-        $tcp = "/bin/fuser -s -n tcp ${tcp_port}"
-      } else {
-        $tcp = "/bin/true"
-      }
-      if has_key( $::telegraf::inputs, 'udp_listener') and has_key( $::telegraf::inputs[udp_listener], 'service_address') {
-        $udp_port = split( $::telegraf::inputs[udp_listener][service_address], ':')[1]
-        $udp = "/bin/fuser -s -n udp ${udp_port}"
-      } else {
-        $udp = "/bin/true"
-      }
-      $restart = "/usr/sbin/service telegraf restart"
-      Package['psmisc'] ->
-      cron { 'ensure telegraf is listening on local ports':
-        command => "bash -c '( ${tcp} && ${udp} ) || ${restart}' >/dev/null 2>&1"
-      }
+    # This is a temporary thing just to ensure all servers get this cron removed if still existing, but this should be removed in the future also
+    cron { 'ensure telegraf is listening on local ports':
+      command => "bash -c '( ${tcp} && ${udp} ) || ${restart}' >/dev/null 2>&1",
+      ensure  => 'absent'
     }
   }
 }
