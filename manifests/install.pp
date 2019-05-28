@@ -23,13 +23,6 @@ class telegraf::install {
           },
         }
         Class['apt::update'] -> Package['telegraf']
-        if $::telegraf::ensure !~ /^\w+$/ {
-          apt::pin { 'pin telegraf package':
-            packages => 'telegraf',
-            priority => 1000,
-            version  => $::telegraf::ensure,
-          }
-        }
       }
       'RedHat': {
         yumrepo { 'influxdata':
@@ -44,6 +37,14 @@ class telegraf::install {
       default: {
         fail('Only RedHat, CentOS, Debian and Ubuntu are supported at this time')
       }
+    }
+  }
+
+  if ($::osfamily == 'Debian') and ($::telegraf::ensure !~ /^\w+$/) {
+      apt::pin { 'pin telegraf package':
+      packages => 'telegraf',
+      priority => 1000,
+      version  => $::telegraf::ensure,
     }
   }
 
