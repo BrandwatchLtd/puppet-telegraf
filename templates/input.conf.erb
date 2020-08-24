@@ -11,7 +11,11 @@
 [[inputs.<%= key %>]]
 <% @sections[key].keys.sort.each do |value| -%>
 <% if @sections[key][value].is_a?(String) -%>
+<% if @sections[key][value] =~ /[\x00-\x08\x10-\x19\x22\x5c\x7f]/ -%>
+  <%= value %> = """<%= @sections[key][value] %>"""
+<% else -%>
   <%= value %> = "<%= @sections[key][value] %>"
+<% end -%>
 <% else -%>
   <%= value %> = <%= @sections[key][value] %>
 <% end -%>
