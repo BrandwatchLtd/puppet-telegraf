@@ -9,8 +9,8 @@ class telegraf::params {
   $hostname               = $::hostname
   $interval               = '10s'
   $round_interval         = true
+  $metric_batch_size      = '1000'
   $metric_buffer_limit    = '1000'
-  $flush_buffer_when_full = true
   $collection_jitter      = '0s'
   $flush_interval         = '10s'
   $flush_jitter           = '0s'

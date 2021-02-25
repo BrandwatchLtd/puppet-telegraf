@@ -20,12 +20,13 @@
 # [*round_interval*]
 #   Boolean. Rounds collection interval to 'interval'
 #
+# [*metric_batch_size*]
+#   Integer. Cache metric_batch_size metrics for each output, and flush this
+#   buffer on a successful write.
+#
 # [*metric_buffer_limit*]
 #   Integer. Cache metric_buffer_limit metrics for each output, and flush this
 #   buffer on a successful write.
-#
-# [*flush_buffer_when_full*]
-#   Boolean. Flush buffer whenever full, regardless of flush_interval
 #
 # [*collection_jitter*]
 #   String.  Sleep for a random time within jitter before collecting.
@@ -66,8 +67,8 @@ class telegraf (
   $hostname               = $telegraf::params::hostname,
   $interval               = $telegraf::params::interval,
   $round_interval         = $telegraf::params::round_interval,
+  $metric_batch_size      = $telegraf::params::metric_batch_size,
   $metric_buffer_limit    = $telegraf::params::metric_buffer_limit,
-  $flush_buffer_when_full = $telegraf::params::flush_buffer_when_full,
   $collection_jitter      = $telegraf::params::collection_jitter,
   $flush_interval         = $telegraf::params::flush_interval,
   $flush_jitter           = $telegraf::params::flush_jitter,
@@ -87,8 +88,8 @@ class telegraf (
   validate_string($hostname)
   validate_string($interval)
   validate_bool($round_interval)
+  validate_integer($metric_batch_size)
   validate_integer($metric_buffer_limit)
-  validate_bool($flush_buffer_when_full)
   validate_string($collection_jitter)
   validate_string($flush_interval)
   validate_string($flush_jitter)
